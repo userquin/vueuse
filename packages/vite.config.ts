@@ -48,10 +48,9 @@ const config: UserConfig = {
       dirs: [
         '.vitepress/theme/components',
       ],
-      customLoaderMatcher: id => id.endsWith('.md'),
       customComponentResolvers: [
         ViteIconsResolver({
-          componentPrefix: '',
+          componentPrefix: 'i',
         }),
       ],
     }),

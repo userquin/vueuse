@@ -2,6 +2,7 @@
 require('esbuild-register')
 const indexes = require('../../indexes.json')
 const { currentVersion, versions } = require('../../meta/versions')
+const base = require('@vue/theme/config')
 
 const categoriesOrder = [
   'Browser',
@@ -37,8 +38,8 @@ const Functions = [
 ]
 
 const DefaultSideBar = [
-  { text: 'Guide', children: Guide },
-  { text: 'Core Functions', children: Functions },
+  { text: 'Guide', items: Guide },
+  { text: 'Core Functions', items: Functions },
   { text: 'Add-ons', link: '/add-ons' },
   { text: 'Ecosystem', link: '/ecosystem' },
   { text: 'Export Size', link: '/export-size' },
@@ -51,25 +52,33 @@ const FunctionsSideBar = getFunctionsSideBar()
  * @type {import('vitepress').UserConfig}
  */
 const config = {
+  ...base,
+
   title: 'VueUse',
   description: 'Collection of essential Vue Composition Utilities',
   lang: 'en-US',
+
   themeConfig: {
     logo: '/favicon.svg',
     repo: 'vueuse/vueuse',
     docsDir: 'packages',
+
     editLinks: true,
     editLinkText: 'Edit this page',
     lastUpdated: 'Last Updated',
+
+    algolia: {
+      apiKey: 'a99ef8de1b2b27949975ce96642149c6',
+      indexName: 'vueuse',
+    },
+
     nav: [
-      // { text: 'Home', link: '/' },s
       {
         text: 'Guide',
         items: Guide,
       },
       {
         text: 'Functions',
-        link: '/functions',
         items: indexes.categories
           .filter(f => !f.startsWith('@'))
           .map((c) => {
@@ -97,19 +106,17 @@ const config = {
         items: [
           { text: 'Release Notes', link: 'https://github.com/vueuse/vueuse/releases' },
           { text: 'What\'s news', link: '/recent-updated' },
-          ...versions.map((i) => {
-            if (i.version === currentVersion) {
-              return {
-                text: `v${i.version} (Current)`,
-                activeMatch: '/', // always active
-                link: '/',
-              }
+          ...versions.map(i => i.version === currentVersion
+            ? {
+              text: `v${i.version} (Current)`,
+              activeMatch: '/', // always active
+              link: '/',
             }
-            return {
+            : {
               text: `v${i.version}`,
               link: i.link,
-            }
-          }),
+            },
+          ),
         ],
       },
     ],
@@ -130,10 +137,6 @@ const config = {
       '/rxjs/': FunctionsSideBar,
       '/integrations/': FunctionsSideBar,
       '/firebase/': FunctionsSideBar,
-    },
-    algolia: {
-      apiKey: 'a99ef8de1b2b27949975ce96642149c6',
-      indexName: 'vueuse',
     },
   },
   head: [
@@ -170,7 +173,7 @@ function getFunctionsSideBar() {
 
     links.push({
       text: name,
-      children: functions.map(i => ({
+      items: functions.map(i => ({
         text: i.name,
         link: `/${i.package}/${i.name}/`,
       })),

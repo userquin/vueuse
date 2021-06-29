@@ -24,8 +24,10 @@ const config: UserConfig = {
   optimizeDeps: {
     exclude: [
       'vue-demi',
+      '@vue/theme',
       '@vueuse/shared',
       '@vueuse/core',
+      'body-scroll-lock',
     ],
     include: [
       'axios',
@@ -46,7 +48,7 @@ const config: UserConfig = {
   plugins: [
     Components({
       dirs: [
-        '.vitepress/theme/components',
+        resolve(__dirname, '.vitepress/theme/components'),
       ],
       customComponentResolvers: [
         ViteIconsResolver({

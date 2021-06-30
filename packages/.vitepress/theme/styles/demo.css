@@ -2,17 +2,20 @@
   --width: 100vw;
   --margin-left: -1.5rem;
 
+  font-size: 16px;
   background: rgba(125, 125, 125, 0.04);
   padding: 2em 3em;
+  margin-bottom: 40px;
   position: relative;
-  border: 1px solid var(--c-divider);
+  border: 1px solid var(--vt-c-divider);
+  border-radius: 4px;
 }
 
 .demo.wide {
   width: var(--width);
   margin-left: var(--margin-left);
   border: none;
-  border-bottom: 1px solid var(--c-divider);
+  border-bottom: 1px solid var(--vt-c-divider);
 }
 
 .demo::after {
@@ -47,14 +50,14 @@
   }
 
   button {
-    padding: 0.5em 1em 0.4em 1em;
-    background-color: var(--c-brand);
+    padding: 3px 15px;
+    background-color: var(--vt-c-brand);
     border: none;
     outline: none;
     color: white;
     margin: 0.5rem 0;
-    border-bottom: 2px solid var(--c-brand-dark);
-    text-shadow: 1px 1px 1px var(--c-brand-dark);
+    border-bottom: 2px solid var(--vt-c-brand-dark);
+    text-shadow: 1px 1px 1px var(--vt-c-brand-dark);
     border-radius: 4px;
     font-size: 1rem;
     box-sizing: border-box;
@@ -66,18 +69,18 @@
   }
 
   button.orange {
-    --c-brand: #db8742;
-    --c-brand-dark: #ad6e39;
-    --c-brand-active: #d67e36;
+    --vt-c-brand: #db8742;
+    --vt-c-brand-dark: #ad6e39;
+    --vt-c-brand-active: #d67e36;
   }
 
   button:hover {
-    background-color: var(--c-brand-active);
+    background-color: var(--vt-c-brand-active);
   }
 
   button:active {
     border-bottom: 0;
-    border-top: 2px solid var(--c-brand-dark);
+    border-top: 2px solid var(--vt-c-brand-dark);
   }
   button ~ button {
     margin-left: 0.5rem;
@@ -107,7 +110,7 @@
   }
 
   input:focus {
-    border: 1px solid var(--c-divider-dark);
+    border: 1px solid var(--vt-c-divider-dark);
   }
 
   pre,
@@ -116,7 +119,8 @@
     background: var(--code-inline-bg-color);
     padding: 0.5rem;
     border-radius: 4px;
-    font-size: 0.95rem;
+    font-size: 0.9em;
+    overflow: auto;
   }
 
   .resizer {
@@ -124,7 +128,7 @@
     padding: 1rem;
     width: 200px;
     height: 200px;
-    border: 1px solid var(--c-divider-light);
+    border: 1px solid var(--vt-c-divider-light);
     border-radius: 4px;
     background: white;
     outline: none;
@@ -139,8 +143,8 @@
     bottom: 0;
     right: 0;
     padding: 1rem 2rem;
-    border: 1px solid var(--c-divider-light);
-    background: var(--c-bg);
+    border: 1px solid var(--vt-c-divider-light);
+    background: var(--vt-c-bg);
     z-index: 100;
     min-width: 100px;
   }

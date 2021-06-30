@@ -112,20 +112,28 @@ const config = {
       {
         text: `v${currentVersion}`,
         items: [
-          { text: 'Release Notes', link: 'https://github.com/vueuse/vueuse/releases' },
-          { text: 'What\'s news', link: '/recent-updated' },
-          ...versions.map(i => i.version === currentVersion
-            ? {
-              text: `v${i.version} (Current)`,
-              activeMatch: '/', // always active
-              link: '/',
-            }
-            : {
-              text: `v${i.version}`,
-              link: i.link,
-            },
-          ),
+          {
+            items: [
+              { text: 'Release Notes', link: 'https://github.com/vueuse/vueuse/releases' },
+              { text: 'What\'s news', link: '/recent-updated' },
+            ],
+          },
+          {
+            text: 'Versions',
+            items: versions.map(i => i.version === currentVersion
+              ? {
+                text: `v${i.version} (Current)`,
+                activeMatch: '/', // always active
+                link: '/',
+              }
+              : {
+                text: `v${i.version}`,
+                link: i.link,
+              },
+            ),
+          },
         ],
+
       },
     ],
     sidebar: {

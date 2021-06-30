@@ -40,10 +40,15 @@ const Functions = [
 const DefaultSideBar = [
   { text: 'Guide', items: Guide },
   { text: 'Core Functions', items: Functions },
-  { text: 'Add-ons', link: '/add-ons' },
-  { text: 'Ecosystem', link: '/ecosystem' },
-  { text: 'Export Size', link: '/export-size' },
-  { text: 'Recent Updated', link: '/recent-updated' },
+  {
+    text: 'Links',
+    items: [
+      { text: 'Add-ons', link: '/add-ons' },
+      { text: 'Ecosystem', link: '/ecosystem' },
+      { text: 'Export Size', link: '/export-size' },
+      { text: 'Recent Updated', link: '/recent-updated' },
+    ],
+  },
 ]
 
 const FunctionsSideBar = getFunctionsSideBar()
@@ -71,6 +76,11 @@ const config = {
       apiKey: 'a99ef8de1b2b27949975ce96642149c6',
       indexName: 'vueuse',
     },
+
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/vueuse/vueuse' },
+      { icon: 'twitter', link: 'https://twitter.com/vueuse' },
+    ],
 
     nav: [
       {

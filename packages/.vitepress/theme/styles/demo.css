@@ -90,7 +90,7 @@
     cursor: default;
     background-color: var(--c-disabled-bg);
     color: var(--c-disabled-fg);
-    border-bottom: 2px solid var(--c-divider-light);
+    border-bottom: 2px solid var(--vt-divider-light);
     pointer-events: none;
     text-shadow: none;
     border-top: 0;
@@ -101,16 +101,16 @@
     min-width: 20rem;
     font-size: 1.05rem;
     padding: 0.5em 1em 0.4em 1em;
-    border: 1px solid var(--c-divider-light);
+    border: 1px solid var(--vt-c-divider-light-1);
     border-radius: 4px;
     margin: 1rem 0;
     outline: none;
-    background: var(--c-bg);
-    color: var(--c-text);
+    background: var(--vt-c-bg);
+    color: var(--vt-c-text);
   }
 
   input:focus {
-    border: 1px solid var(--vt-c-divider-dark);
+    border: 1px solid var(--vt-c-divider-dark-1);
   }
 
   pre,

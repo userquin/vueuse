@@ -47,9 +47,9 @@ const config: UserConfig = {
   },
   plugins: [
     Components({
-      dirs: [
-        resolve(__dirname, '.vitepress/theme/components'),
-      ],
+      dirs: resolve(__dirname, '.vitepress/theme/components'),
+      extensions: ['vue', 'md'],
+      customLoaderMatcher: v => v.endsWith('.md'),
       customComponentResolvers: [
         ViteIconsResolver({
           componentPrefix: 'i',
@@ -81,14 +81,17 @@ const config: UserConfig = {
 
         if (functionNames.includes(name) && i === 'index.md') {
           const frontmatterEnds = code.indexOf('---\n\n') + 4
+          const firstSubheader = code.search(/\n## \w/)
+          const sliceIndex = firstSubheader < 0 ? frontmatterEnds : firstSubheader
+
           let header = ''
           if (hasDemo(pkg, name))
-            header = '\n<script setup>\nimport Demo from \'./demo.vue\'\n</script>\n<DemoContainer><Demo/></DemoContainer>\n'
+            header = '\n<script setup>\nimport Demo from \'./demo.vue\'\n</script>\n## Demo\n<DemoContainer><Demo/></DemoContainer>\n'
 
           header += getFunctionHead(pkg, name)
 
           if (header)
-            code = code.slice(0, frontmatterEnds) + header + code.slice(frontmatterEnds)
+            code = code.slice(0, sliceIndex) + header + code.slice(sliceIndex)
         }
 
         return code

@@ -1,7 +1,3 @@
-::: tip
-📰 [Recent updated functions](/recent-updated)
-:::
-
 # Core Functions
 
 <!--GENERATED LIST, DO NOT MODIFY MANUALLY-->

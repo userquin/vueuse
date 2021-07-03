@@ -143,8 +143,8 @@ function initialize(userOptions: any) {
 
 .DocSearch {
   --docsearch-container-background: rgba(220,220,220,0.6);
-  --docsearch-modal-background: var(--c-bg);
-  --docsearch-modal-shadow: var(--c-bg);
+  --docsearch-modal-background: var(--vt-c-bg);
+  --docsearch-modal-shadow: var(--vt-c-bg);
   --docsearch-hit-color: var(--c-text-light);
   --docsearch-footer-background: rgba(125,125,125,0.1);
   --docsearch-footer-shadow: rgba(125,125,125,0.1);

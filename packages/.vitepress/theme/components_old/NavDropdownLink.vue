@@ -124,7 +124,7 @@ function toggle() {
     border-radius: 6px;
     padding: 12px 0;
     min-width: 128px;
-    background-color: var(--c-bg);
+    background-color: var(--vt-c-bg);
     box-shadow: var(--shadow-3);
   }
 }

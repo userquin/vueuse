@@ -26,7 +26,7 @@ defineProps({
   bottom: 0;
   left: 0;
   z-index: var(--z-index-sidebar);
-  border-right: 1px solid var(--c-divider);
+  border-right: 1px solid var(--vt-c-divider);
   width: var(--sidebar-width);
   background-color: var(--vt-c-bg);
   overflow-y: auto;

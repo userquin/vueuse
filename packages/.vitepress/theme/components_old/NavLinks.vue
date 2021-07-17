@@ -34,7 +34,7 @@ const show = computed(() => theme.value.nav || repo.value || localeLinks.value)
 <style scoped>
 .nav-links {
   padding: 0.75rem 0;
-  border-bottom: 1px solid var(--c-divider);
+  border-bottom: 1px solid var(--vt-c-divider);
 }
 
 @media (min-width: 720px) {

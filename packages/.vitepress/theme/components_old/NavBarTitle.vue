@@ -23,7 +23,7 @@ const { site, theme, localePath } = useData()
 .nav-bar-title {
   font-size: 1.3rem;
   font-weight: 600;
-  color: var(--c-text);
+  color: var(--vt-c-text);
 }
 
 .nav-bar-title:hover {

@@ -67,7 +67,7 @@ function toggle() {
   font-family: var(--font-family-base);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--c-text);
+  color: var(--vt-c-text);
   white-space: nowrap;
   background-color: transparent;
   cursor: pointer;

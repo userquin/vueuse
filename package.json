@@ -59,6 +59,7 @@
     "@vue/compiler-sfc": "^3.2.0-beta.1",
     "@vue/composition-api": "^1.1.0-beta.2",
     "@vue/test-utils": "^1.2.1",
+    "@vue/theme": "link:../vue-theme",
     "axios": "^0.21.1",
     "consola": "^2.15.3",
     "cross-env": "^7.0.3",

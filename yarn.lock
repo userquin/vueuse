@@ -2,6 +2,25 @@
 # yarn lockfile v1
 
 
+"@algolia/autocomplete-core@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-core/-/autocomplete-core-1.2.1.tgz#95fc07cfa40b5a38e3f80acd75d1fb94968215a8"
+  integrity sha512-/SLS6636Wpl7eFiX7eEy0E3wBo60sUm1qRYybJBDt1fs8reiJ1+OSy+dZgrLBfLL4mSFqRIIUHXbVp25QdZ+iw==
+  dependencies:
+    "@algolia/autocomplete-shared" "1.2.1"
+
+"@algolia/autocomplete-preset-algolia@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-preset-algolia/-/autocomplete-preset-algolia-1.2.1.tgz#bda1741823268ff76ba78306259036f000198e01"
+  integrity sha512-Lf4PpPVgHNXm1ytrnVdrZYV7hAYSCpAI/TrebF8UC6xflPY6sKb1RL/2OfrO9On7SDjPBtNd+6MArSar5JmK0g==
+  dependencies:
+    "@algolia/autocomplete-shared" "1.2.1"
+
+"@algolia/autocomplete-shared@1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@algolia/autocomplete-shared/-/autocomplete-shared-1.2.1.tgz#96f869fb2285ed6a34a5ac2509722c065df93016"
+  integrity sha512-RHCwcXAYFwDXTlomstjWRFIzOfyxtQ9KmViacPE5P5hxUSSjkmG3dAb77xdydift1PaZNbho5TNTCi5UZe0RpA==
+
 "@algolia/cache-browser-local-storage@4.10.2":
   version "4.10.2"
   resolved "https://registry.yarnpkg.com/@algolia/cache-browser-local-storage/-/cache-browser-local-storage-4.10.2.tgz#9925c7c0ce94257564b8948b60fc427c4a98124c"
@@ -1081,6 +1100,11 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@docsearch/css@3.0.0-alpha.37", "@docsearch/css@^3.0.0-alpha.36":
+  version "3.0.0-alpha.37"
+  resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-3.0.0-alpha.37.tgz#9ae87820d6c0ee2ccb55164ecaec612f721fd3c4"
+  integrity sha512-EUr2AhvFw+TYPrkfePjDWh3NqpJgpwM8v6n8Mf0rUnL/ThxXKsdamzfBqWCWAh+N1o+eeGqypvy+p8Fp8dZXhQ==
+
 "@docsearch/css@^1.0.0-alpha.28":
   version "1.0.0-alpha.28"
   resolved "https://registry.yarnpkg.com/@docsearch/css/-/css-1.0.0-alpha.28.tgz#c8a2cd8c1bb3a6855c51892e9dbdab5d42fe6e23"
@@ -1093,6 +1117,24 @@
   dependencies:
     "@docsearch/react" "^1.0.0-alpha.28"
     preact "^10.0.0"
+
+"@docsearch/js@^3.0.0-alpha.36":
+  version "3.0.0-alpha.37"
+  resolved "https://registry.yarnpkg.com/@docsearch/js/-/js-3.0.0-alpha.37.tgz#002e1f545cbb5f601944c651e38c3c1f1eb83b3c"
+  integrity sha512-3Vyxn6WO8AtmWMFhZv5oAcwKHwfXU6Zk+E+Kuw8Oi0afGhVP8927HuNwccVwbCKy0vxkwqLcUAI0vZ0c6nLMEQ==
+  dependencies:
+    "@docsearch/react" "3.0.0-alpha.37"
+    preact "^10.0.0"
+
+"@docsearch/react@3.0.0-alpha.37":
+  version "3.0.0-alpha.37"
+  resolved "https://registry.yarnpkg.com/@docsearch/react/-/react-3.0.0-alpha.37.tgz#1e12608db3faf8d3462769dbad569d26e4c1c633"
+  integrity sha512-W/O3OfL+LLQTlGXrT8/d7ztBYKgZmDWweu9f0O/41zV6Hirzo/qZEWzr25ky8utFUcMwj1pfTHLOp1F9UCtLAQ==
+  dependencies:
+    "@algolia/autocomplete-core" "1.2.1"
+    "@algolia/autocomplete-preset-algolia" "1.2.1"
+    "@docsearch/css" "3.0.0-alpha.37"
+    algoliasearch "^4.0.0"
 
 "@docsearch/react@^1.0.0-alpha.28":
   version "1.0.0-alpha.28"
@@ -2354,6 +2396,25 @@
     lodash "^4.17.15"
     pretty "^2.0.0"
 
+"@vue/theme@link:../vue-theme":
+  version "0.0.0"
+  uid ""
+
+"@vueuse/core@^5.0.2":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-5.1.3.tgz#a9edda9202513423a27fbac896dd7bc918d1ac6c"
+  integrity sha512-5CmF/epSo9L1Obz3A37UJOpDdno0BDw46zyXq0DHgvzEwL6gPb9GgJZcy4Hm5YSjQYIeQPo35uO8qsZyIjEZog==
+  dependencies:
+    "@vueuse/shared" "5.1.3"
+    vue-demi "*"
+
+"@vueuse/shared@5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@vueuse/shared/-/shared-5.1.3.tgz#11faa3a1a2b4d3dc41eac7a825900a8894efe95e"
+  integrity sha512-p8n/69QMtSsLN5rri9c3sN5QJJXWA7cm9chgo3DowTBRYLBni1I9kGY2nz299Tur6XEFuf+63E5TvMTJVJeHHw==
+  dependencies:
+    vue-demi "*"
+
 "@windicss/plugin-utils@1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@windicss/plugin-utils/-/plugin-utils-1.2.0.tgz#f9c657f981d7696dfa6b8e8069b311161a2ac9b4"
@@ -2711,6 +2772,11 @@ bluebird@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
+
+body-scroll-lock@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/body-scroll-lock/-/body-scroll-lock-3.1.5.tgz#c1392d9217ed2c3e237fee1e910f6cdd80b7aaec"
+  integrity sha512-Yi1Xaml0EvNA0OYWxXiYNqY24AfWkbA6w5vxE7GWxtKfzIbZM+Qw+aSmkgsbWzbHiy/RCSkUZBplVxTA+E4jJg==
 
 boolean@^3.0.1:
   version "3.1.2"
@@ -5984,6 +6050,11 @@ normalize-url@^4.1.0:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-4.5.1.tgz#0dd90cf1288ee1d1313b87081c9a5932ee48518a"
   integrity sha512-9UZCFRHQdNrfTpGg8+1INIg93B6zE0aXMVFkw1WFwvO4SlZywU6aLg5Of0Ap/PgcbSw4LNxvMWXMeugwMCX0AA==
+
+normalize.css@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/normalize.css/-/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"
+  integrity sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==
 
 npm-conf@^1.1.3:
   version "1.1.3"

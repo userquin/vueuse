@@ -10,13 +10,10 @@ const { toggle, isFullscreen } = useFullscreen(el)
   <div class="text-center">
     <video
       ref="el"
-      class="mb-2"
+      class="my-6 rounded-md"
       src="https://vjs.zencdn.net/v/oceans.mp4"
-      width="500"
       controls
     />
-    <br>
-    <br>
     <button @click="toggle">
       Go Fullscreen
     </button>

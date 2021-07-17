@@ -4,7 +4,7 @@
   --vp-sidebar-width-medium: 220px;
   --vp-sidebar-width-large: 220px;
 
-  --vt-c-brand-active: #33a06f;
+  --vt-c-brand-active: #44bd87;
 }
 
 .vt-doc h2 {
@@ -19,7 +19,7 @@
   width: 220px !important;
 }
 
-.container,
-.content {
+.vt-doc .container,
+.vt-doc .content {
   max-width: 900px !important;
 }

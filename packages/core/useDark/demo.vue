@@ -8,8 +8,8 @@ const toggleDark = useToggle(isDark)
 
 <template>
   <button @click="toggleDark()">
-    <carbon-moon v-if="isDark" />
-    <carbon-sun v-else />
+    <i-carbon-moon v-if="isDark" class="inline-block -mt-0.5" />
+    <i-carbon-sun v-else class="inline-block -mt-0.5" />
 
     <span class="ml-2">{{ isDark ? 'Dark': 'Light' }}</span>
   </button>

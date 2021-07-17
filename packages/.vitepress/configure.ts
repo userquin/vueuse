@@ -37,18 +37,17 @@ const Functions = [
   { text: 'Watch', link: '/functions#watch' },
 ]
 
+const Links = [
+  { text: 'Add-ons', link: '/add-ons' },
+  { text: 'Ecosystem', link: '/ecosystem' },
+  { text: 'Export Size', link: '/export-size' },
+  { text: 'Recent Updated', link: '/recent-updated' },
+]
+
 const DefaultSideBar = [
   { text: 'Guide', items: Guide },
   { text: 'Core Functions', items: Functions },
-  {
-    text: 'Links',
-    items: [
-      { text: 'Add-ons', link: '/add-ons' },
-      { text: 'Ecosystem', link: '/ecosystem' },
-      { text: 'Export Size', link: '/export-size' },
-      { text: 'Recent Updated', link: '/recent-updated' },
-    ],
-  },
+  { text: 'Links', items: Links },
 ]
 
 const FunctionsSideBar = getFunctionsSideBar()
@@ -85,7 +84,10 @@ const config = {
     nav: [
       {
         text: 'Guide',
-        items: Guide,
+        items: [
+          { text: 'Guide', items: Guide },
+          { text: 'Links', items: Links },
+        ],
       },
       {
         text: 'Functions',
@@ -102,12 +104,8 @@ const config = {
         link: '/add-ons',
       },
       {
-        text: 'More',
-        items: [
-          { text: 'Playground', link: 'https://play.vueuse.org' },
-          { text: 'Ecosystem', link: '/ecosystem' },
-          { text: 'Export Size', link: '/export-size' },
-        ],
+        text: 'Playground',
+        link: 'https://play.vueuse.org',
       },
       {
         text: `v${currentVersion}`,

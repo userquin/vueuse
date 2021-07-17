@@ -1,5 +1,5 @@
 import { MaybeRef } from '@vueuse/shared'
-import { computed, ComputedRef, reactive, readonly, Ref, ref } from 'vue-demi'
+import { computed, ComputedRef, reactive, readonly, Ref, ref, DeepReadonly } from 'vue-demi'
 import { useEventListener } from '../useEventListener'
 import { SwipeDirection } from '../useSwipe/index'
 
@@ -31,10 +31,10 @@ export interface PointerPosition {
 }
 
 export interface PointerSwipeReturn {
-  readonly isSwiping: Ref<boolean>
-  direction: ComputedRef<SwipeDirection | null>
-  readonly posStart: PointerPosition
-  readonly posEnd: PointerPosition
+  isSwiping: DeepReadonly<Ref<boolean>>
+  direction: DeepReadonly<ComputedRef<SwipeDirection | null>>
+  posStart: PointerPosition
+  posEnd: PointerPosition
   distanceX: ComputedRef<number>
   distanceY: ComputedRef<number>
   stop: () => void
@@ -48,7 +48,7 @@ export interface PointerSwipeReturn {
  * @param options
  */
 export function usePointerSwipe(
-  target: MaybeRef<Element | null | undefined>,
+  target: MaybeRef<HTMLElement | null | undefined>,
   options: PointerSwipeOptions = {},
 ): PointerSwipeReturn {
   const targetRef = ref(target)
@@ -99,10 +99,10 @@ export function usePointerSwipe(
     useEventListener(target, 'pointerdown', (e: PointerEvent) => {
       isPointerDown.value = true
       // Disable scroll on for TouchEvents
-      targetRef.value?.setAttribute('style', 'touch-action: none')
+      targetRef.value?.style?.setProperty('touch-action', 'none')
       // Future pointer events will be retargeted to target until pointerup/cancel
-      targetRef.value?.setPointerCapture(e.pointerId)
-
+      const eventTarget = e.target as HTMLElement | undefined
+      eventTarget?.setPointerCapture(e.pointerId)
       const { clientX: x, clientY: y } = e
       updatePosStart(x, y)
       updatePosEnd(x, y)
@@ -127,7 +127,7 @@ export function usePointerSwipe(
 
       isPointerDown.value = false
       isSwiping.value = false
-      targetRef.value?.setAttribute('style', 'touch-action: initial')
+      targetRef.value?.style?.setProperty('touch-action', 'initial')
     }),
   ]
 

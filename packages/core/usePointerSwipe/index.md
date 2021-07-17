@@ -53,10 +53,10 @@ export interface PointerPosition {
   y: number
 }
 export interface PointerSwipeReturn {
-  readonly isSwiping: Ref<boolean>
-  direction: ComputedRef<SwipeDirection | null>
-  readonly posStart: PointerPosition
-  readonly posEnd: PointerPosition
+  isSwiping: DeepReadonly<Ref<boolean>>
+  direction: DeepReadonly<ComputedRef<SwipeDirection | null>>
+  posStart: PointerPosition
+  posEnd: PointerPosition
   distanceX: ComputedRef<number>
   distanceY: ComputedRef<number>
   stop: () => void
@@ -69,7 +69,7 @@ export interface PointerSwipeReturn {
  * @param options
  */
 export declare function usePointerSwipe(
-  target: MaybeRef<Element | null | undefined>,
+  target: MaybeRef<HTMLElement | null | undefined>,
   options?: PointerSwipeOptions
 ): PointerSwipeReturn
 ```

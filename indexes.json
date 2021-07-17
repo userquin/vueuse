@@ -162,6 +162,20 @@
       "description": "utility for creating event hooks"
     },
     {
+      "name": "createGlobalState",
+      "package": "shared",
+      "docs": "https://vueuse.org/shared/createGlobalState/",
+      "category": "State",
+      "description": "keep states in the global scope to be reusable across Vue instances"
+    },
+    {
+      "name": "createSharedComposable",
+      "package": "shared",
+      "docs": "https://vueuse.org/shared/createSharedComposable/",
+      "category": "State",
+      "description": "make a composable function usable with multiple Vue instances"
+    },
+    {
       "name": "debouncedWatch",
       "package": "shared",
       "docs": "https://vueuse.org/shared/debouncedWatch/",
@@ -265,6 +279,13 @@
       "docs": "https://vueuse.org/shared/tryOnMounted/",
       "category": "Component",
       "description": "safe `onMounted`"
+    },
+    {
+      "name": "tryOnScopeDispose",
+      "package": "shared",
+      "docs": "https://vueuse.org/shared/tryOnScopeDispose/",
+      "category": "Component",
+      "description": "safe `onScopeDispose`"
     },
     {
       "name": "tryOnUnmounted",
@@ -391,11 +412,11 @@
       "description": "a ref which will be reset to the default value after some time"
     },
     {
-      "name": "createGlobalState",
+      "name": "computedInject",
       "package": "core",
-      "docs": "https://vueuse.org/core/createGlobalState/",
-      "category": "State",
-      "description": "keep states in the global scope to be reusable across Vue instances"
+      "docs": "https://vueuse.org/core/computedInject/",
+      "category": "Component",
+      "description": "combine computed and inject"
     },
     {
       "name": "onClickOutside",
@@ -908,6 +929,14 @@
       "docs": "https://vueuse.org/core/useWebWorkerFn/",
       "category": "Misc",
       "description": "run expensive function without blocking the UI"
+    },
+    {
+      "name": "useWindowFocus",
+      "package": "core",
+      "component": true,
+      "docs": "https://vueuse.org/core/useWindowFocus/",
+      "category": "Sensors",
+      "description": "reactively track window focus with `window.onfocus` and `window.onblur` events"
     },
     {
       "name": "useWindowScroll",

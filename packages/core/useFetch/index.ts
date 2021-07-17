@@ -50,8 +50,9 @@ interface UseFetchReturnBase<T> {
 
   /**
    * Manually call the fetch
+   * (default not throwing error)
    */
-  execute: () => Promise<any>
+  execute: (throwOnFailed?: boolean) => Promise<any>
 
   /**
    * Fires after the fetch request has finished
@@ -62,17 +63,28 @@ interface UseFetchReturnBase<T> {
    * Fires after a fetch request error
    */
   onFetchError: EventHookOn
+
+  /**
+   * Fires after a fetch has completed
+   */
+  onFetchFinally: EventHookOn
 }
 
 type DataType = 'text' | 'json' | 'blob' | 'arrayBuffer' | 'formData'
-type PayloadType = 'text' | 'json' | 'formData'
+type HttpMethod = 'get' | 'post' | 'put' | 'delete'
+
+const payloadMapping: Record<string, string> = {
+  json: 'application/json',
+  text: 'text/plain',
+  formData: 'multipart/form-data',
+}
 
 interface UseFetchReturnTypeConfigured<T> extends UseFetchReturnBase<T> {
   // methods
   get(): UseFetchReturnBase<T>
-  post(payload?: unknown, type?: PayloadType): UseFetchReturnBase<T>
-  put(payload?: unknown, type?: PayloadType): UseFetchReturnBase<T>
-  delete(payload?: unknown, type?: PayloadType): UseFetchReturnBase<T>
+  post(payload?: unknown, type?: string): UseFetchReturnBase<T>
+  put(payload?: unknown, type?: string): UseFetchReturnBase<T>
+  delete(payload?: unknown, type?: string): UseFetchReturnBase<T>
 }
 
 export interface UseFetchReturn<T> extends UseFetchReturnTypeConfigured<T> {
@@ -102,11 +114,9 @@ export interface BeforeFetchContext {
 }
 
 export interface AfterFetchContext<T = any> {
-
   response: Response
 
   data: T | null
-
 }
 
 export interface UseFetchOptions {
@@ -168,6 +178,13 @@ function isFetchOptions(obj: object): obj is UseFetchOptions {
   return containsProp(obj, 'immediate', 'refetch', 'beforeFetch', 'afterFetch')
 }
 
+function headersToObject(headers: HeadersInit | undefined) {
+  if (headers instanceof Headers)
+    return Object.fromEntries([...headers.entries()])
+
+  return headers
+}
+
 export function createFetch(config: CreateFetchOptions = {}) {
   let options = config.options || {}
   let fetchOptions = config.fetchOptions || {}
@@ -188,8 +205,8 @@ export function createFetch(config: CreateFetchOptions = {}) {
           ...fetchOptions,
           ...args[0],
           headers: {
-            ...(fetchOptions.headers || {}),
-            ...(args[0].headers || {}),
+            ...(headersToObject(fetchOptions.headers) || {}),
+            ...(headersToObject(args[0].headers) || {}),
           },
         }
       }
@@ -213,11 +230,11 @@ export function useFetch<T>(url: MaybeRef<string>, ...args: any[]): UseFetchRetu
 
   let fetchOptions: RequestInit = {}
   let options: UseFetchOptions = { immediate: true, refetch: false }
-  const config = {
+  type InternalConfig = {method: HttpMethod; type: DataType; payload: unknown; payloadType?: string}
+  const config: InternalConfig = {
     method: 'get',
     type: 'text' as DataType,
     payload: undefined as unknown,
-    payloadType: 'json' as PayloadType,
   }
 
   if (args.length > 0) {
@@ -239,6 +256,7 @@ export function useFetch<T>(url: MaybeRef<string>, ...args: any[]): UseFetchRetu
   // Event Hooks
   const responseEvent = createEventHook<Response>()
   const errorEvent = createEventHook<any>()
+  const finallyEvent = createEventHook<any>()
 
   const isFinished = ref(false)
   const isFetching = ref(false)
@@ -262,7 +280,7 @@ export function useFetch<T>(url: MaybeRef<string>, ...args: any[]): UseFetchRetu
     isFinished.value = !isLoading
   }
 
-  const execute = async() => {
+  const execute = async(throwOnFailed = false) => {
     loading(true)
     error.value = null
     statusCode.value = null
@@ -284,17 +302,11 @@ export function useFetch<T>(url: MaybeRef<string>, ...args: any[]): UseFetchRetu
     }
 
     if (config.payload) {
-      const headers = defaultFetchOptions.headers as Record<string, string>
-      if (config.payloadType === 'json') {
-        defaultFetchOptions.body = JSON.stringify(config.payload)
-        headers['Content-Type'] = 'application/json'
-      }
-      else {
-        defaultFetchOptions.body = config.payload as any
-        headers['Content-Type'] = config.payloadType === 'formData'
-          ? 'multipart/form-data'
-          : 'text/plain'
-      }
+      const headers = headersToObject(defaultFetchOptions.headers) as Record<string, string>
+      if (config.payloadType)
+        headers['Content-Type'] = payloadMapping[config.payloadType] ?? config.payloadType
+
+      defaultFetchOptions.body = config.payloadType === 'json' ? JSON.stringify(config.payload) : config.payload as BodyInit
     }
 
     let isCanceled = false
@@ -308,15 +320,15 @@ export function useFetch<T>(url: MaybeRef<string>, ...args: any[]): UseFetchRetu
       return Promise.resolve()
     }
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       fetch(
         context.url,
         {
           ...defaultFetchOptions,
           ...context.options,
           headers: {
-            ...defaultFetchOptions.headers,
-            ...context.options?.headers,
+            ...headersToObject(defaultFetchOptions.headers),
+            ...headersToObject(context.options?.headers),
           },
         },
       )
@@ -326,23 +338,29 @@ export function useFetch<T>(url: MaybeRef<string>, ...args: any[]): UseFetchRetu
 
           let responseData = await fetchResponse[config.type]()
 
-          // see: https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
-          if (!fetchResponse.ok)
-            throw new Error(fetchResponse.statusText)
-
           if (options.afterFetch)
             ({ data: responseData } = await options.afterFetch({ data: responseData, response: fetchResponse }))
 
           data.value = responseData as any
+
+          // see: https://www.tjvantoll.com/2015/09/13/fetch-and-errors/
+          if (!fetchResponse.ok)
+            throw new Error(fetchResponse.statusText)
+
           responseEvent.trigger(fetchResponse)
           resolve(fetchResponse)
         })
         .catch((fetchError) => {
           error.value = fetchError.message || fetchError.name
           errorEvent.trigger(fetchError)
+          if (throwOnFailed)
+            reject(fetchError)
+          else
+            resolve(undefined)
         })
         .finally(() => {
           loading(false)
+          finallyEvent.trigger(null)
         })
     })
   }
@@ -370,6 +388,7 @@ export function useFetch<T>(url: MaybeRef<string>, ...args: any[]): UseFetchRetu
 
     onFetchResponse: responseEvent.on,
     onFetchError: errorEvent.on,
+    onFetchFinally: finallyEvent.on,
   }
 
   const typeConfigured: UseFetchReturnTypeConfigured<T> = {
@@ -391,12 +410,17 @@ export function useFetch<T>(url: MaybeRef<string>, ...args: any[]): UseFetchRetu
     formData: setType('formData'),
   }
 
-  function setMethod(method: string) {
-    return (payload?: unknown, payloadType?: PayloadType) => {
+  function setMethod(method: HttpMethod) {
+    return (payload?: unknown, payloadType?: string) => {
       if (!isFetching.value) {
         config.method = method
         config.payload = payload
-        config.payloadType = payloadType || typeof payload === 'string' ? 'text' : 'json'
+        config.payloadType = payloadType
+        // Set the payload to json type only if it's not provided and a literal object is provided
+        // The only case we can deduce the content type and `fetch` can't
+        if (!payloadType && payload && Object.getPrototypeOf(payload) === Object.prototype)
+          config.payloadType = 'json'
+
         return base as any
       }
       return undefined

@@ -180,8 +180,9 @@ interface UseFetchReturnBase<T> {
   abort: Fn
   /**
    * Manually call the fetch
+   * (default not throwing error)
    */
-  execute: () => Promise<any>
+  execute: (throwOnFailed?: boolean) => Promise<any>
   /**
    * Fires after the fetch request has finished
    */
@@ -190,13 +191,16 @@ interface UseFetchReturnBase<T> {
    * Fires after a fetch request error
    */
   onFetchError: EventHookOn
+  /**
+   * Fires after a fetch has completed
+   */
+  onFetchFinally: EventHookOn
 }
-declare type PayloadType = "text" | "json" | "formData"
 interface UseFetchReturnTypeConfigured<T> extends UseFetchReturnBase<T> {
   get(): UseFetchReturnBase<T>
-  post(payload?: unknown, type?: PayloadType): UseFetchReturnBase<T>
-  put(payload?: unknown, type?: PayloadType): UseFetchReturnBase<T>
-  delete(payload?: unknown, type?: PayloadType): UseFetchReturnBase<T>
+  post(payload?: unknown, type?: string): UseFetchReturnBase<T>
+  put(payload?: unknown, type?: string): UseFetchReturnBase<T>
+  delete(payload?: unknown, type?: string): UseFetchReturnBase<T>
 }
 export interface UseFetchReturn<T> extends UseFetchReturnTypeConfigured<T> {
   json<JSON = any>(): UseFetchReturnTypeConfigured<JSON>
